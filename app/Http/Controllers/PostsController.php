@@ -125,14 +125,18 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::whereId($id)->first();
+
+        if (!$post) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Post tidak ditemukan!',
+            ], 404);
+        }
         $post->delete();
 
-        if ($post) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Post Berhasil Dihapus!',
-                'id' => $post->id,
-            ], 200);
-        }
+        return response()->json([
+            'success' => true,
+            'deleted_id' => $post->id,
+        ], 200);
     }
 }
