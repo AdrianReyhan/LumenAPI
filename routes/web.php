@@ -22,3 +22,4 @@ $router->post('/posts', 'PostsController@store');
 $router->put('/posts/{id}', 'PostsController@update');
 $router->get('/posts/{id}', 'PostsController@show');
 $router->delete('/posts/{id}', 'PostsController@destroy');
+
