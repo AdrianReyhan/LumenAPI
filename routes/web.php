@@ -25,8 +25,8 @@ $router->delete('/posts/{id}', 'PostsController@destroy');
 
 $router->get('/posts/{postId}/comments', 'CommentController@index');
 $router->post('/posts/{postId}/comments', 'CommentController@store');
-$router->get('/comment/{id}', 'CommentController@show');  
-$router->get('/posts/{postId}/comment/{id}', 'CommentController@showPostComment');
-$router->put('/comment/{id}', 'CommentController@update'); 
-$router->put('/posts/{postId}/comment/{id}', 'CommentController@updatePostComment');
+$router->get('/comments/{id}', 'CommentController@show');  
+$router->get('/posts/{postId}/comments/{id}', 'CommentController@showPostComment');
+$router->put('/comments/{id}', 'CommentController@update'); 
+$router->put('/posts/{postId}/comments/{id}', 'CommentController@updatePostComment');
 $router->delete('/comments/{id}', 'CommentController@destroy');
