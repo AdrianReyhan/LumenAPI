@@ -19,7 +19,9 @@ $router->get('/', function () use ($router) {
 
 $router->get('/products', 'ProductController@index');
 $router->post('/products', 'ProductController@store');
-$router->get('/products/{id}', 'ProductController@show');
+$router->get('/products/{id}', 'ProductController@show');   
+$router->put('/products/{id}', 'ProductController@update'); 
+$router->delete('/products/{id}', 'ProductController@destroy');
 
 $router->get('/posts/all', 'PostsController@index');
 $router->post('/posts', 'PostsController@store');
