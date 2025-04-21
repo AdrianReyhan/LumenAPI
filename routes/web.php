@@ -17,11 +17,11 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/products', 'ProductController@index');
-$router->post('/products', 'ProductController@store');
-$router->get('/products/{id}', 'ProductController@show');   
-$router->put('/products/{id}', 'ProductController@update'); 
-$router->delete('/products/{id}', 'ProductController@destroy');
+$router->get('/users', 'UserController@index');  
+$router->get('/users/{id}', 'UserController@show');  
+$router->post('/users', 'UserController@store');  
+$router->put('/users/{id}', 'UserController@update');  
+$router->delete('/users/{id}', 'UserController@destroy');  
 
 $router->get('/posts/all', 'PostsController@index');
 $router->post('/posts', 'PostsController@store');
@@ -36,3 +36,9 @@ $router->get('/posts/{postId}/comments/{id}', 'CommentController@showPostComment
 $router->put('/comments/{id}', 'CommentController@update'); 
 $router->put('/posts/{postId}/comments/{id}', 'CommentController@updatePostComment');
 $router->delete('/comments/{id}', 'CommentController@destroy');
+
+$router->get('/products', 'ProductController@index');
+$router->post('/products', 'ProductController@store');
+$router->get('/products/{id}', 'ProductController@show');
+$router->put('/products/{id}', 'ProductController@update');
+$router->delete('/products/{id}', 'ProductController@destroy');

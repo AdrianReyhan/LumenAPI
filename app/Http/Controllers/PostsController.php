@@ -24,6 +24,7 @@ class PostsController extends Controller
         $validator = Validator::make($request->all(), [
             'title'   => 'required',
             'content' => 'required',
+            'user_id' => 'required|exists:users,id',
         ]);
 
         if ($validator->fails()) {
@@ -38,6 +39,8 @@ class PostsController extends Controller
             $post = Post::create([
                 'title'     => $request->input('title'),
                 'content'   => $request->input('content'),
+                'status'    => $request->input('status', 'draft'),
+                'user_id'   => $request->input('user_id'),
             ]);
 
             if ($post) {
@@ -70,6 +73,8 @@ class PostsController extends Controller
         $validator = Validator::make($request->all(), [
             'title'   => 'nullable|string|max:255',
             'content' => 'nullable|string',
+            'status'  => 'nullable|in:draft,published',
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
         if ($validator->fails()) {
@@ -89,17 +94,20 @@ class PostsController extends Controller
             $post->content = $request->input('content');
         }
 
+        if ($request->has('status')) {
+            $post->status = $request->input('status');
+        }
+
+        if ($request->has('user_id')) {
+            $post->user_id = $request->input('user_id');  
+        }
+
         $post->save();
 
         return response()->json([
             'success' => true,
             'message' => 'Post Berhasil Diupdate!',
-            'data' => [
-                'id' => $post->id,
-                'title' => $post->title,
-                'content' => $post->content,
-                'link' => "/posts/{$post->id}",
-            ],
+            'data'    => $post
         ], 200);
     }
 
@@ -124,7 +132,7 @@ class PostsController extends Controller
 
     public function destroy($id)
     {
-        $post = Post::whereId($id)->first();
+        $post = Post::find($id);
 
         if (!$post) {
             return response()->json([
@@ -136,6 +144,7 @@ class PostsController extends Controller
 
         return response()->json([
             'success' => true,
+            'message' => 'Post berhasil dihapus!',
             'deleted_id' => $post->id,
         ], 200);
     }

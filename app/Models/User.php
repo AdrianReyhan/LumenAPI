@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -19,7 +20,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $fillable = [
-        'name', 'email',
+        'name',
+        'email',
+        'password',  // Add 'password' to the fillable array
     ];
 
     /**
@@ -28,6 +31,25 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var string[]
      */
     protected $hidden = [
-        'password',
+        'password',  // Hide the password in the JSON response
     ];
+
+    /**
+     * Hash the password when creating or updating a user.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // Automatically hash the password before saving the user
+        static::creating(function ($user) {
+            $user->password = Hash::make($user->password);  // Hash the password
+        });
+
+        static::updating(function ($user) {
+            $user->password = Hash::make($user->password);  // Hash the password before updating
+        });
+    }
 }
