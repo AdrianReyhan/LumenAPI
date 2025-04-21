@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/users', 'UserController@index');  
+$router->get('/users/all', 'UserController@index');  
 $router->get('/users/{id}', 'UserController@show');  
 $router->post('/users', 'UserController@store');  
 $router->put('/users/{id}', 'UserController@update');  
@@ -29,13 +29,20 @@ $router->put('/posts/{id}', 'PostsController@update');
 $router->get('/posts/{id}', 'PostsController@show');
 $router->delete('/posts/{id}', 'PostsController@destroy');
 
-$router->get('/posts/{postId}/comments', 'CommentController@index');
-$router->post('/posts/{postId}/comments', 'CommentController@store');
+
+$router->get('/comments/all', 'CommentController@index');  
 $router->get('/comments/{id}', 'CommentController@show');  
-$router->get('/posts/{postId}/comments/{id}', 'CommentController@showPostComment');
-$router->put('/comments/{id}', 'CommentController@update'); 
-$router->put('/posts/{postId}/comments/{id}', 'CommentController@updatePostComment');
+$router->post('/comments', 'CommentController@store');  
+$router->put('/comments/{id}', 'CommentController@update');  
 $router->delete('/comments/{id}', 'CommentController@destroy');
+
+// $router->get('/posts/{postId}/comments', 'CommentController@index');
+// $router->post('/posts/{postId}/comments', 'CommentController@store');
+// $router->get('/comments/{id}', 'CommentController@show');  
+// $router->get('/posts/{postId}/comments/{id}', 'CommentController@showPostComment');
+// $router->put('/comments/{id}', 'CommentController@update'); 
+// $router->put('/posts/{postId}/comments/{id}', 'CommentController@updatePostComment');
+// $router->delete('/comments/{id}', 'CommentController@destroy');
 
 $router->get('/products', 'ProductController@index');
 $router->post('/products', 'ProductController@store');
